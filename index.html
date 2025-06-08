@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIANOV - Toko Fashion Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgb(207, 198, 225) 0%, #9b8ac4 100%);
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #2c1810;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .cart-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-icon {
+            background: rgba(255,255,255,0.2);
+            color: #2c1810;
+            padding: 0.75rem;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid #2c1810;
+        }
+
+        .cart-icon:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #460246;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Navigation Styles */
+        nav {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: rgb(18, 18, 43);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.6);
+            border-color: rgb(18, 18, 43);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #460246 0%, #6b2c5c 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2c1810;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #460246, #6b2c5c);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Product Grid */
+        .produk {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .produk-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .produk-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #460246;
+        }
+
+        .produk-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .produk-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .produk-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c1810;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .produk-item .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #460246;
+            margin-bottom: 1rem;
+        }
+
+        .produk-item p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn-beli {
+            background: linear-gradient(135deg, #460246 0%, #6b2c5c 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 120px;
+        }
+
+        .btn-beli:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(70, 2, 70, 0.3);
+        }
+
+        .btn-keranjang {
+            background: transparent;
+            color: #460246;
+            border: 2px solid #460246;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 120px;
+        }
+
+        .btn-keranjang:hover {
+            background: #460246;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Categories Section */
+        .kategori {
+            margin: 3rem 0;
+        }
+
+        .kategori-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .kategori-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .kategori-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #460246;
+        }
+
+        .kategori-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #460246;
+        }
+
+        .kategori-item h3 {
+            color: #2c1810;
+            margin-bottom: 0.5rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* About Section */
+        .tentang {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .tentang p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, rgb(207, 198, 225) 0%, #9b8ac4 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: #2c1810;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #2c1810;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #460246;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 2px solid #2c1810;
+            color: #2c1810;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .menu-toggle {
+                display: block;
+                order: -1;
+                align-self: flex-end;
+            }
+
+            nav {
+                order: 1;
+                width: 100%;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .cart-section {
+                order: 0;
+            }
+
+            main {
+                padding: 0 1rem;
+                margin: 1rem auto;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .produk {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-beli, .btn-keranjang {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 1.5rem 1rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .produk-item {
+                padding: 1rem;
+            }
+
+            main {
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .produk {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>KIANOV</h1>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <div class="cart-section">
+                <a href="#keranjang" class="cart-icon">
+                    🛒
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+        <nav>
+            <div class="nav-menu" id="navMenu">
+                <a href="#beranda">Beranda</a>
+                <a href="#produk">Produk</a>
+                <a href="#kategori">Kategori</a>
+                <a href="#tentang">Tentang Kami</a>
+                <a href="#kontak">Kontak</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="beranda" class="hero">
+            <h2>Selamat Datang di KIANOV</h2>
+            <p>Koleksi Fashion Terbaik untuk Gaya Hidup Modern Anda</p>
+        </section>
+
+        <section id="produk">
+            <h2>Produk Terbaru</h2>
+            <div class="produk">
+                <article class="produk-item">
+                    <img src="https://day1.ir/wp-content/uploads/2024/11/New-female-texture-15.webp" alt="Kardigan Oversized Lengan Balon">
+                    <h3>Kardigan Oversized</h3>
+                    <div class="price">Rp 200.000</div>
+                    <p>Kardigan oversized dengan model lengan balon. Dibuat dari bahan rajut halus dan lembut yang mudah dipadukan. Dilengkapi dengan kancing depan dan potongan yang nyaman. Cocok dikenakan untuk kegiatan santai maupun semi formal dengan tampilan yang trendy namun tetap klasik.</p>
+                    <div class="button-group">
+                        <button class="btn-beli" onclick="beliSekarang('Kardigan Oversized')">Beli</button>
+                        <button class="btn-keranjang" onclick="tambahKeKeranjang('Kardigan Oversized', 200000)">Keranjang</button>
+                    </div>
+                </article>
+
+                <article class="produk-item">
+                    <img src="https://image.hm.com/assets/005/1e/47/1e479823a7bb33c506d146082b7dd1551ba7b5c0.jpg?imwidth=2160" alt="Kardigan Rajut Klasik">
+                    <h3>Kardigan Rajut Klasik</h3>
+                    <div class="price">Rp 195.000</div>
+                    <p>Kardigan rajut klasik dengan kerah polo yang menambah kesan formal. Hadir dalam warna coklat hangat. Dilengkapi dengan kancing depan yang mengkilap untuk sentuhan eksklusif. Bahan rajut premium memberikan kehangatan dan kenyamanan saat dipakai di berbagai musim.</p>
+                    <div class="button-group">
+                        <button class="btn-beli" onclick="beliSekarang('Kardigan Rajut Klasik')">Beli</button>
+                        <button class="btn-keranjang" onclick="tambahKeKeranjang('Kardigan Rajut Klasik', 195000)">Keranjang</button>
+                    </div>
+                </article>
+
+                <article class="produk-item">
+                    <img src="https://image.hm.com/assets/hm/01/d1/01d1dd13e8f2ba60765d17fb510d2f179039e175.jpg?imwidth=2160" alt="Kardigan Minimalis">
+                    <h3>Kardigan Minimalis</h3>
+                    <div class="price">Rp 170.000</div>
+                    <p>Kardigan rajut minimalis dengan desain sederhana namun elegan. Dilengkapi dengan penutup kain sederhana di bagian depan. Potongan ringkas yang nyaman dan stylish, sangat cocok untuk melengkapi berbagai gaya busana dari kasual hingga semi formal.</p>
+                    <div class="button-group">
+                        <button class="btn-beli" onclick="beliSekarang('Kardigan Minimalis')">Beli</button>
+                        <button class="btn-keranjang" onclick="tambahKeKeranjang('Kardigan Minimalis', 170000)">Keranjang</button>
+                    </div>
+                </article>
+
+                <article class="produk-item">
+                    <img src="https://cdn.kibrispdr.org/data/22/blazer-png-13.png" alt="Blazer Formal">
+                    <h3>Blazer Formal</h3>
+                    <div class="price">Rp 250.000</div>
+                    <p>Blazer formal dengan potongan tailored yang sempurna. Dibuat dari bahan berkualitas tinggi dengan detail finishing yang rapi. Cocok untuk acara formal, meeting, atau presentasi penting. Tersedia dalam berbagai ukuran dengan fit yang nyaman.</p>
+                    <div class="button-group">
+                        <button class="btn-beli" onclick="beliSekarang('Blazer Formal')">Beli</button>
+                        <button class="btn-keranjang" onclick="tambahKeKeranjang('Blazer Formal', 350000)">Keranjang</button>
+                    </div>
+                </article>
+
+                <article class="produk-item">
+                    <img src="https://i.ebayimg.com/images/g/dzkAAOSwMBVlznaI/s-l400.webp" alt="Sweater Casual">
+                    <h3>Sweater Casual</h3>
+                    <div class="price">Rp 180.000</div>
+                    <p>Sweater casual dengan desain modern dan nyaman. Bahan cotton blend yang breathable dan tidak mudah kusut. Perfect untuk daily wear atau hangout dengan teman. Available dalam berbagai warna yang mudah dipadukan dengan outfit favorit Anda.</p>
+                    <div class="button-group">
+                        <button class="btn-beli" onclick="beliSekarang('Sweater Casual')">Beli</button>
+                        <button class="btn-keranjang" onclick="tambahKeKeranjang('Sweater Casual', 180000)">Keranjang</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="kategori" class="kategori">
+            <h2>Kategori Produk</h2>
+            <div class="kategori-grid">
+                <div class="kategori-item" onclick="filterKategori('kardigan')">
+                    <div class="kategori-icon">🧥</div>
+                    <h3>Kardigan</h3>
+                    <p>Koleksi kardigan trendy</p>
+                </div>
+                <div class="kategori-item" onclick="filterKategori('blazer')">
+                    <div class="kategori-icon">👔</div>
+                    <h3>Blazer</h3>
+                    <p>Blazer formal dan casual</p>
+                </div>
+                <div class="kategori-item" onclick="filterKategori('sweater')">
+                    <div class="kategori-icon">👕</div>
+                    <h3>Sweater</h3>
+                    <p>Sweater nyaman dan stylish</p>
+                </div>
+                <div class="kategori-item" onclick="filterKategori('aksesoris')">
+                    <div class="kategori-icon">👜</div>
+                    <h3>Aksesoris</h3>
+                    <p>Tas, syal, dan aksesoris lainnya</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tentang" class="tentang">
+            <h2>Tentang Kami</h2>
+            <p>
+                KIANOV adalah brand fashion yang menghadirkan koleksi pakaian berkualitas tinggi dengan desain modern dan elegan. 
+                Kami berkomitmen untuk memberikan produk fashion terbaik yang tidak hanya mengikuti tren terkini, tetapi juga 
+                memberikan kenyamanan maksimal bagi penggunanya. Dengan pengalaman lebih dari 5 tahun dalam industri fashion, 
+                KIANOV telah menjadi pilihan utama untuk mereka yang menghargai kualitas dan style. Setiap produk kami dibuat 
+                dengan perhatian detail dan menggunakan bahan berkualitas premium untuk memastikan kepuasan pelanggan.
+            </p>
+        </section>
+    </main>
+
+    <footer id="kontak">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#privacy">Kebijakan Privasi</a>
+                <a href="#terms">Syarat & Ketentuan</a>
+                <a href="#help">Bantuan</a>
+                <a href="#contact">Hubungi Kami</a>
+                <a href="#return">Pengembalian</a>
+            </div>
+            <p>&copy; 2025 KIANOV Fashion Store. Hak Cipta Dilindungi.</p>
+            <p>Email: Kianov@info.com | WhatsApp: +62 8976543212 | Instagram: @kianov.official</p>
+        </div>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+        const cartItems = [];
+
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function tambahKeKeranjang(namaProduct, harga) {
+            cartCount++;
+            cartItems.push({ nama: namaProduct, harga: harga });
+            document.querySelector('.cart-count').textContent = cartCount;
+            
+            // Animasi counter
+            const counter = document.querySelector('.cart-count');
+            counter.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                counter.style.transform = 'scale(1)';
+            }, 200);
+            
+            alert(`${namaProduct} berhasil ditambahkan ke keranjang!`);
+        }
+
+        function beliSekarang(namaProduct) {
+            alert(`Pembelian ${namaProduct} sedang diproses. Anda akan diarahkan ke halaman pembayaran.`);
+        }
+
+        function filterKategori(kategori) {
+            alert(`Menampilkan produk kategori: ${kategori.toUpperCase()}`);
+        }
+
+        // Smooth scrolling untuk navigasi
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Tutup menu mobile setelah klik
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // Tutup menu mobile saat klik di luar
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Scroll animation untuk header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'linear-gradient(135deg, rgba(207, 198, 225, 0.95) 0%, rgba(155, 138, 196, 0.95) 100%)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, rgb(207, 198, 225) 0%, #9b8ac4 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
